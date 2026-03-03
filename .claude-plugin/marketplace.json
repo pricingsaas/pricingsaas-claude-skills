@@ -1,0 +1,16 @@
+{
+  "name": "pricingsaas-claude-skills",
+  "owner": {
+    "name": "PricingSaaS"
+  },
+  "metadata": {
+    "description": "PricingSaaS skills for Claude Code — pricing intelligence workflows for partners."
+  },
+  "plugins": [
+    {
+      "name": "pricingsaas",
+      "source": "./plugins/pricingsaas",
+      "description": "PricingSaaS pricing intelligence skills for partners."
+    }
+  ]
+}
