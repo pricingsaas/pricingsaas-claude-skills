@@ -8,4 +8,4 @@ disable-model-invocation: true
 
 The PricingSaaS plugin is installed and working correctly.
 
-Tell the user: "✅ PricingSaaS plugin is active. Version 0.1.0."
+Tell the user: "✅ PricingSaaS plugin is active. Version 0.2.0."
