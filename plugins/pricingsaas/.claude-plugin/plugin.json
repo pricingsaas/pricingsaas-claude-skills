@@ -1,7 +1,7 @@
 {
   "name": "pricingsaas",
   "description": "PricingSaaS skills for Claude Code — pricing intelligence workflows for partners.",
-  "version": "0.1.0",
+  "version": "0.3.0",
   "author": {
     "name": "PricingSaaS"
   },
