@@ -1,9 +1,19 @@
 {
   "name": "pricingsaas",
-  "description": "PricingSaaS skills for Claude Code — pricing intelligence workflows for partners.",
-  "version": "0.3.0",
+  "description": "Pricing intelligence skills — competitive landscape discovery, pricing research reports, and weekly competitor monitoring powered by PricingSaaS MCP data.",
+  "version": "1.0.0",
   "author": {
-    "name": "PricingSaaS"
+    "name": "PricingSaaS",
+    "email": "support@pricingsaas.com"
   },
-  "homepage": "https://pricingsaas.com"
+  "homepage": "https://pricingsaas.com",
+  "repository": "https://github.com/pricingsaas/pricingsaas-claude-skills",
+  "license": "MIT",
+  "keywords": [
+    "pricing",
+    "saas",
+    "competitive-intelligence",
+    "market-research",
+    "pricing-analysis"
+  ]
 }
