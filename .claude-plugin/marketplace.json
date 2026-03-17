@@ -6,14 +6,14 @@
   },
   "metadata": {
     "description": "PricingSaaS skills for Claude Code — pricing intelligence workflows powered by the PricingSaaS MCP.",
-    "version": "1.0.0"
+    "version": "1.1.0"
   },
   "plugins": [
     {
       "name": "pricingsaas",
       "source": "./plugins/pricingsaas",
       "description": "Pricing intelligence skills — competitive landscape discovery, pricing research reports, and weekly competitor monitoring powered by PricingSaaS MCP data.",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "author": {
         "name": "PricingSaaS",
         "email": "support@pricingsaas.com"
