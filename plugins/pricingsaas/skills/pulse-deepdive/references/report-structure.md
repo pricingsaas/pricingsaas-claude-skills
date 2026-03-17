@@ -207,5 +207,5 @@ Highlight recommended row with green accent:
 1. **Self-contained HTML** — no external CSS, JS, or fonts. Everything inline.
 2. **Monochrome design** — black/white/gray base. Color only for change indicators and the recommended scenario.
 3. **Links everywhere** — every company name links to PricingSaaS.
-4. **Upload as .html** — Write to `/tmp/{company}-pricing-analysis.html`, then `upload_report(filename, file_path)` or `upload_report(filename, file_content=<base64>)`.
+4. **Upload as .html** — Write to `/tmp/{company}-pricing-analysis.html`, then `upload_report(filename, file_path)` and execute the returned curl command.
 5. **Company logos** — use the `logo_url` field from `get_company_details` (Cloudinary-hosted). Do NOT use `https://logo.clearbit.com/` URLs — they do not render.
