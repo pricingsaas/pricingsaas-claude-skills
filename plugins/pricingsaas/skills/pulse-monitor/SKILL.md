@@ -125,7 +125,7 @@ From each diff, capture: `logo_url` (Cloudinary-hosted — use this in the repor
 
 Generate a professional digest report as a single self-contained HTML file (no external CSS/JS/fonts). See [references/digest-report-structure.md](references/digest-report-structure.md) for the exact template, CSS, and section patterns. Uses the same monochrome design system as the `pulse-deepdive` report.
 
-**Build the HTML string directly** — do not use Node.js libraries or external tooling. The HTML is simple enough to construct as a string with template literals. Base64-encode the final HTML string for upload.
+**Build the HTML string directly** — do not use Node.js libraries or external tooling. The HTML is simple enough to construct as a string with template literals.
 
 **Required report sections:**
 1. Header with PricingSaaS wordmark and headline ("15 of 116 Tracked Competitors Changed")
@@ -140,16 +140,19 @@ Generate a professional digest report as a single self-contained HTML file (no e
 
 ### Step 6: Upload report and get shareable link
 
-Write the HTML to a temp file, then upload using the `upload-file-to-share` skill:
+Write the HTML to a temp file and upload via the two-step presigned URL flow:
 
+1. Call `upload_report` with the filename and file path:
 ```
-1. Write HTML string to /tmp/pricing-digest-{week}.html
-2. /upload-file-to-share /tmp/pricing-digest-{week}.html
+upload_report(filename="pricing-digest-{week}.html", file_path="/tmp/pricing-digest-{week}.html")
 ```
 
-This uploads to `share.pricingsaas.com` via S3 and returns a public URL instantly (<1 second). The URL is permanent and publicly accessible.
+2. The tool returns a presigned URL and a `curl` command. Execute the curl command via Bash to complete the upload:
+```bash
+curl -X PUT -H "Content-Type: text/html" --data-binary @"/tmp/pricing-digest-{week}.html" "<presigned-url>"
+```
 
-**Do NOT use `upload_report` MCP tool for this** — passing 20KB+ of base64 inline to an MCP tool is slow. The `upload-file-to-share` skill uses a direct S3 upload which is much faster.
+The tool response includes the final public URL. Do NOT base64-encode the file or pass `file_content` — always use `file_path` to avoid context window bloat. This link is the most important output — display it prominently.
 
 ### Step 7: Deliver conversational digest
 
@@ -213,7 +216,7 @@ get_diff_highlight(slug=<slug>, period=<period>, query="<description of the chan
 - `fetch_diffs` per company (full detail): 1 credit each
 - `get_pricing_news`: Free
 - `get_diff_highlight`: Free
-- `upload_report`: Free
+- `upload_report` + curl: Free
 - Typical weekly run: ~4 credits discovery (this week + last week) + 1 credit per watchlist company that changed
 
 ## MCP Tools Used
@@ -229,7 +232,7 @@ get_diff_highlight(slug=<slug>, period=<period>, query="<description of the chan
 | `fetch_diffs(slug, period)` | 1 credit | Full diff detail for each watchlist hit |
 | `get_pricing_news()` | Free | Market-wide highlights for the week |
 | `get_diff_highlight(slug, period, query)` | Free | Visual before/after for significant changes |
-| `upload_report(filename, file_content)` | Free | Upload HTML report, get shareable URL |
+| `upload_report(filename, file_path)` + `curl` | Free | Get presigned URL, upload HTML report |
 
 ## Scheduling
 

@@ -152,15 +152,17 @@ search_pricing_knowledge("freemium conversion benchmarks")
 
 Each result links to the original source with page reference.
 
-### upload_report(file_path)
+### upload_report(filename, file_path)
 
-Upload a generated report file and get a public shareable URL.
+Get a presigned S3 URL to upload a file and share it via a public URL. Returns a presigned PUT URL (10 min expiry) and a curl command. Execute the curl command to complete the upload. Supports HTML, PDF, CSV, JSON, Markdown, TXT. Max 1.5MB. Free (0 credits).
 
 ```
-upload_report(filename="report.html", file_content="<base64-encoded html>")
-```
+# Step 1: Get presigned URL
+upload_report(filename="report.html", file_path="/tmp/report.html")
 
-**Note:** This tool is planned. See requirements document for details.
+# Step 2: Execute the returned curl command via Bash to upload
+curl -X PUT -H "Content-Type: text/html" --data-binary @"/tmp/report.html" "<presigned_url>"
+```
 
 ## Credit Optimization
 

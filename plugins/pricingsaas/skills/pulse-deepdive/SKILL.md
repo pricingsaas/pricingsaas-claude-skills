@@ -97,14 +97,19 @@ For each: new price, percentage change, peer alignment, risk level.
 
 Generate a professional report as a self-contained HTML file — see [references/report-structure.md](references/report-structure.md) for the template, CSS, and section patterns.
 
-After generating the report, write the HTML to a temp file and upload using the `upload-file-to-share` skill:
+After generating the report, write the HTML to a temp file and upload via the two-step presigned URL flow:
 
+1. Call `upload_report` with the filename and file path:
 ```
-1. Write HTML to /tmp/{company}-pricing-analysis.html
-2. /upload-file-to-share /tmp/{company}-pricing-analysis.html
+upload_report(filename="{company}-pricing-analysis.html", file_path="/tmp/{company}-pricing-analysis.html")
 ```
 
-This uploads to `share.pricingsaas.com` via S3 and returns a public URL instantly.
+2. The tool returns a presigned URL and a `curl` command. Execute the curl command via Bash to complete the upload:
+```bash
+curl -X PUT -H "Content-Type: text/html" --data-binary @"/tmp/{company}-pricing-analysis.html" "<presigned-url>"
+```
+
+The tool response includes the final public URL. Do NOT base64-encode the file or pass `file_content` — always use `file_path` to avoid context window bloat.
 
 **Required sections:**
 1. Executive Summary with recommendation

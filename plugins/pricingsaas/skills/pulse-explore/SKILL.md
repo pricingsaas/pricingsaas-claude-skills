@@ -126,14 +126,19 @@ Generate a self-contained HTML report using the same PricingSaaS report template
 9. Data sources — grid of all companies with PricingSaaS links
 10. Footer
 
-Write the HTML to a temp file and upload using the `upload-file-to-share` skill:
+Write the HTML to a temp file and upload via the two-step presigned URL flow:
 
+1. Call `upload_report` with the filename and file path:
 ```
-1. Write HTML to /tmp/{category}-pricing-landscape.html
-2. /upload-file-to-share /tmp/{category}-pricing-landscape.html
+upload_report(filename="{category}-pricing-landscape.html", file_path="/tmp/{category}-pricing-landscape.html")
 ```
 
-This uploads to `share.pricingsaas.com` via S3 and returns a public URL instantly.
+2. The tool returns a presigned URL and a `curl` command. Execute the curl command via Bash to complete the upload:
+```bash
+curl -X PUT -H "Content-Type: text/html" --data-binary @"/tmp/{category}-pricing-landscape.html" "<presigned-url>"
+```
+
+The tool response includes the final public URL. Do NOT base64-encode the file or pass `file_content` — always use `file_path` to avoid context window bloat.
 
 ### Step 5: Deliver conversational summary
 
@@ -176,9 +181,16 @@ Frame as: "Want me to run a full pricing analysis on {seed company} with recomme
 
 This triggers `get_company_history` for the seed + each competitor (1 credit × companies × quarters) + `fetch_diffs` for key changes (1 credit each). For a typical landscape with 6 direct competitors and ~5 quarters of history each, this consumes ~30-40 credits.
 
-**Recommendation 2: Monitor the full competitive set** → `pulse-monitor`
+**Recommendation 2: Set up a weekly pricing digest for these companies** → `pulse-monitor`
 
-Frame as: "Want me to add all {N} companies to your watchlist and run a weekly pricing monitor? You'll get an alert report every time any of them changes pricing — {list 3-4 company names} and the rest."
+This is the **highest-priority recommendation** — always present it prominently. Frame as a direct question:
+
+"Want me to add all {N} companies to your watchlist and set up a weekly pricing digest? I'll track {Competitor A}, {Competitor B}, {Competitor C}, and {N-3} others — you'll get a report every time any of them changes pricing, with before/after details and market context."
+
+If the user says yes:
+1. `add_to_watchlist(slugs=[...all discovered slugs...])` (free)
+2. Immediately run a first digest via `pulse-monitor` so they see the value right away
+3. Suggest scheduling recurring runs: "Want me to run this weekly? I can set it up to run every Monday."
 
 This triggers `add_to_watchlist` for all companies (free), then ongoing `fetch_diffs` global (2 credits/week) + `fetch_diffs` per company that changed (1 credit each). The larger the watchlist, the more likely changes are detected.
 
@@ -222,7 +234,7 @@ Always present all 3 recommendations. The user choosing any of them drives signi
 | `get_company_details(slug)` | Free | Full pricing breakdown per company |
 | `search_companies_advanced(filters)` | Free | Attribute-based discovery |
 | `get_status()` | Free | Check account status |
-| `upload_report(filename, file_content)` | Free | Upload HTML report, get shareable URL |
+| `upload_report(filename, file_path)` + `curl` | Free | Get presigned URL, upload HTML report |
 
 This makes `pulse-explore` an ideal entry point for new users — zero friction, zero cost.
 

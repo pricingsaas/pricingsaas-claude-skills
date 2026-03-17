@@ -267,5 +267,5 @@ Compact list, visually de-emphasized:
 3. **Links everywhere** — every company name should link to its PricingSaaS page, every diff should link to the visual diff.
 4. **Sort by significance** — price changes first (largest % first), then restructures, then features.
 5. **Responsive** — the template includes mobile breakpoints. Don't break them.
-6. **Upload as HTML** — Write to `/tmp/pricing-digest-{week}.html`, then use `/upload-file-to-share` skill for instant S3 upload.
+6. **Upload as HTML** — Write to `/tmp/pricing-digest-{week}.html`, then `upload_report(filename, file_path)` or `upload_report(filename, file_content=<base64>)`.
 7. **Company logos** — use the `logo_url` field from `get_company_details` or diff responses (Cloudinary-hosted). Do NOT use `https://logo.clearbit.com/` URLs — they do not render.
