@@ -1,23 +1,22 @@
 # PricingSaaS Claude Skills Plugin
 
-Pricing intelligence skills for Claude Code — competitive landscape discovery, pricing research reports, and weekly competitor monitoring powered by [PricingSaaS](https://pricingsaas.com) MCP data.
+Pricing intelligence skills for Claude Code — map competitive landscapes and discover how any SaaS category prices, powered by [PricingSaaS](https://pricingsaas.com) MCP data.
 
 ## Install
 
 ```shell
-/plugin marketplace add pricingsaas/pricingsaas-claude-skills
-/plugin install pricingsaas@pricingsaas-claude-skills
+/plugin add https://github.com/pricingsaas/pricingsaas-claude-skills.git
 ```
 
 ## Prerequisites
 
-Skills in this plugin use the [PricingSaaS MCP server](https://pricingsaas.com) for pricing data. Connect it as a remote MCP server in Claude Code before using data-driven skills.
+This plugin uses the [PricingSaaS MCP server](https://pricingsaas.com) for pricing data. Connect it as a remote MCP server in Claude Code before using the skill.
 
-## Skills
+## Skill
 
 ### `/pricingsaas:pulse-scan` — Market Landscape Discovery
 
-Map the pricing landscape of any SaaS category. Finds all tracked companies, pulls pricing details, groups by market tier, and highlights pricing model patterns. **Zero credit cost.**
+Map the pricing landscape of any SaaS category. Finds all tracked companies, pulls pricing details, groups by market tier, and highlights pricing model patterns. Generates a shareable HTML report. **Zero credit cost.**
 
 ```
 "Map the QA and testing tool pricing landscape"
@@ -25,33 +24,14 @@ Map the pricing landscape of any SaaS category. Finds all tracked companies, pul
 "Show me restaurant tech pricing"
 ```
 
-### `/pricingsaas:pulse-deepdive` — Competitive Pricing Analysis
+**What it does:**
+- Discovers 10-30 companies in a category via keyword and attribute search
+- Pulls full pricing breakdowns for each company
+- Groups companies by market tier (SMB, mid-market, enterprise)
+- Identifies pricing model patterns, price clusters, and coverage gaps
+- Generates a self-contained HTML landscape report with charts and tables
 
-Full competitive pricing analysis with data-backed price change recommendations. Researches 12-18 comparable companies, analyzes price increase trends, and generates a professional HTML report with three pricing scenarios.
-
-```
-"How much should we raise prices on our Pro plan?"
-"Run a competitive pricing analysis for Notion"
-"What should we charge compared to competitors?"
-```
-
-### `/pricingsaas:pulse-monitor` — Weekly Pricing Digest
-
-Manages a persistent watchlist of competitor companies and delivers recurring summaries of pricing changes with market context. Works on-demand or scheduled.
-
-```
-"Monitor my competitors' pricing"
-"What changed in pricing this week?"
-"Add Notion to my watchlist"
-```
-
-## Skill workflow
-
-The three skills form a natural funnel:
-
-1. **Scan** a category → discover who's in the space and how they price
-2. **Deep-dive** into a specific company → get a pricing recommendation with a report
-3. **Monitor** ongoing → track competitor changes week over week
+**After the scan**, it recommends ways to dig deeper using PricingSaaS MCP tools — pull pricing history for a competitor, add companies to your watchlist, or research pricing strategy frameworks.
 
 ## License
 
