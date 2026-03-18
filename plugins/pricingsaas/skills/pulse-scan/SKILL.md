@@ -112,7 +112,7 @@ Where do prices concentrate? Identify clear bands (e.g., $10-20/user, $50-100/us
 
 ### Step 4: Generate landscape report
 
-Generate a self-contained HTML report.
+Generate a self-contained HTML report using the PricingSaaS report template (see `references/report-structure.md` for the exact CSS and HTML structure). You MUST use that template — do not invent your own styles.
 
 **Report sections for explore:**
 1. Header with seed company logo (from `logo_url` in `get_company_details` response) + PricingSaaS branding and category title
