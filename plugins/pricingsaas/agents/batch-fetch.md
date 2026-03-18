@@ -59,7 +59,7 @@ Return a structured summary for each company. Use this format:
 **Latest Change:** {date} — {description} ({+X%})
 or: No price changes recorded.
 
-**PricingSaaS:** https://pricingsaas.com/companies/{slug}?v2=true
+**PricingSaaS:** https://pricingsaas.com/pulse/companies/{slug}
 ```
 
 Only include sections that were requested. If `details` only, skip the change history. If `diffs` only, skip the full plan breakdown.

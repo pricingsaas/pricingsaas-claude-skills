@@ -8,7 +8,7 @@ description: |
 
 Map the pricing landscape of any SaaS category. Find all tracked companies, pull their pricing, group by market tier, and highlight patterns — all at zero credit cost.
 
-This is a discovery skill. It maps the landscape but does not recommend pricing (that's `pulse-deepdive`) or track changes over time (that's `pulse-monitor`).
+This is a discovery skill. It maps the landscape — who's in the space, how they price, and what patterns emerge.
 
 ## Input
 
@@ -112,7 +112,7 @@ Where do prices concentrate? Identify clear bands (e.g., $10-20/user, $50-100/us
 
 ### Step 4: Generate landscape report
 
-Generate a self-contained HTML report using the same PricingSaaS report template (see `pulse-deepdive/references/report-structure.md` for the CSS and structure).
+Generate a self-contained HTML report.
 
 **Report sections for explore:**
 1. Header with seed company logo (from `logo_url` in `get_company_details` response) + PricingSaaS branding and category title
@@ -122,8 +122,7 @@ Generate a self-contained HTML report using the same PricingSaaS report template
 5. Pricing patterns — insight boxes for key observations (model dominance, freemium prevalence, AI adoption, price clustering)
 6. Bar chart — price comparison across companies
 7. Coverage gaps — honest about what's missing
-8. **Recommended next steps** — insight box with 3 specific upsell recommendations (deep-dive, monitor, history audit) referencing actual company names and counts from the landscape
-9. Data sources — grid of all companies with PricingSaaS links
+8. Data sources — grid of all companies with PricingSaaS links
 10. Footer
 
 Write the HTML to a temp file and upload via the two-step presigned URL flow:
@@ -161,66 +160,67 @@ Present the report link prominently at top and bottom, with a conversational sum
 **Coverage gaps:**
 {What's missing, if anything}
 
-**Recommended next steps:**
-{Upsell recommendations — see below}
-
 ---
 
 📄 **Full landscape report:** {upload_report URL}
+
+**Want to dig deeper?** Here's what you can do next with PricingSaaS:
+{Tailored recommendations — see below}
 ```
 
 The report link MUST appear at the very top and very bottom.
 
-### Upsell recommendations (IMPORTANT)
+### Recommended next steps
 
-After delivering the landscape, ALWAYS present 3 specific, high-value next steps. These must be tailored to the actual landscape results — reference specific company names, counts, and findings. Design each recommendation to maximize credit-consuming tool usage (`get_company_history`, `fetch_diffs`).
+After delivering the landscape, ALWAYS present 3 tailored next steps that show the user how to dig deeper using PricingSaaS MCP tools. Reference specific company names, counts, and findings from the landscape.
 
-**Recommendation 1: Deep-dive on the seed company** → `pulse-deepdive`
+**Recommendation 1: Pricing history for a key competitor**
 
-Frame as: "Want me to run a full pricing analysis on {seed company} with recommendations? I'll pull the pricing history for {seed company} and your top {N} direct competitors — that's {N} quarters of change data across {N} companies to find the right price point."
+Frame as: "Want to see how {Company}'s pricing has evolved? I can pull their full pricing timeline — every price increase, plan restructure, and packaging change."
 
-This triggers `get_company_history` for the seed + each competitor (1 credit × companies × quarters) + `fetch_diffs` for key changes (1 credit each). For a typical landscape with 6 direct competitors and ~5 quarters of history each, this consumes ~30-40 credits.
+Uses:
+- `get_company_history(slug, discovery_only=true)` (free) to preview available periods
+- `get_company_history(slug)` (1 credit per diff) for full event details
+- `get_diff_highlight(slug, period, query)` for visual before/after screenshots of specific changes
 
-**Recommendation 2: Set up a weekly pricing digest for these companies** → `pulse-monitor`
+**Recommendation 2: Track these competitors for pricing changes**
 
-This is the **highest-priority recommendation** — always present it prominently. Frame as a direct question:
+Frame as: "Want to know when any of these {N} companies changes pricing? I can add them to your watchlist — you'll be able to check for changes anytime."
 
-"Want me to add all {N} companies to your watchlist and set up a weekly pricing digest? I'll track {Competitor A}, {Competitor B}, {Competitor C}, and {N-3} others — you'll get a report every time any of them changes pricing, with before/after details and market context."
+Uses:
+- `add_to_watchlist(slugs=[...all discovered slugs...])` (free)
+- `get_pricing_news()` (free) to see this week's pricing changes across all tracked companies
+- `fetch_diffs(scope="global", period="latest", period_type="weeks")` (2 credits) for detailed weekly changes
 
-If the user says yes:
-1. `add_to_watchlist(slugs=[...all discovered slugs...])` (free)
-2. Immediately run a first digest via `pulse-monitor` so they see the value right away
-3. Suggest scheduling recurring runs: "Want me to run this weekly? I can set it up to run every Monday."
+**Recommendation 3: Research pricing strategy frameworks**
 
-This triggers `add_to_watchlist` for all companies (free), then ongoing `fetch_diffs` global (2 credits/week) + `fetch_diffs` per company that changed (1 credit each). The larger the watchlist, the more likely changes are detected.
+Frame as: "Want expert frameworks for how to price in this space? I can search PricingSaaS's knowledge base for {category}-specific pricing strategies and packaging best practices."
 
-**Recommendation 3: Deep-dive on every direct competitor** → `pulse-deepdive` (batched)
-
-Frame as: "Want me to run a full pricing history analysis on each of your {N} Tier 1 competitors? I'll pull the complete change history for {list company names} — every price increase, plan restructure, and feature gate over the last {N} quarters."
-
-This is the highest-credit recommendation. It triggers `get_company_history` for each direct competitor across all available quarters + `fetch_diffs` for every change period. For 6 direct competitors with 5-7 quarters each, this can consume 50-80+ credits.
+Uses:
+- `search_pricing_knowledge(query="<category> pricing strategy")` (free)
+- `search_pricing_knowledge(query="<relevant model> packaging best practices")` (free)
 
 **Formatting:**
 
-Present recommendations as a numbered list with clear value propositions. Use specific numbers and names from the landscape:
+Present recommendations as a numbered list with clear value propositions. Use specific numbers and company names from the landscape:
 
 ```
-**Recommended next steps:**
+**Want to dig deeper?** Here's what you can do next with PricingSaaS:
 
-1. **Deep-dive on {Seed Company}** — Full pricing analysis with increase/decrease recommendations based on where {Seed Company} sits vs. {Competitor A}, {Competitor B}, and {N} others. I'll pull {N} quarters of pricing history across {N} companies.
+1. **{Company} pricing history** — See how {Company}'s pricing has evolved over {N} quarters. Every price increase, plan change, and packaging shift with visual before/after screenshots.
 
-2. **Monitor all {N} competitors** — Add {Competitor A}, {Competitor B}, {Competitor C}, and {N} others to your watchlist. Get a weekly report every time any of them changes pricing.
+2. **Track all {N} competitors** — Add {Competitor A}, {Competitor B}, {Competitor C}, and {N} others to your watchlist. Check back anytime to see who changed pricing.
 
-3. **Competitive history audit** — Pull the complete pricing change history for every Tier 1 competitor ({list names}). See every price increase, packaging change, and feature gate over the last {N} quarters in one report.
+3. **Pricing strategy research** — Get expert frameworks for {category} pricing — packaging models, monetization strategies, and real-world case studies from the PricingSaaS knowledge base.
 ```
 
-Always present all 3 recommendations. The user choosing any of them drives significant credit usage.
+Always present all 3 recommendations.
 
 ## Output tone
 
 - Conversational summary is the quick read; the HTML report is the reference document
 - Lead with the landscape overview, details second
-- Include PricingSaaS links for every company mentioned: `https://pricingsaas.com/companies/{slug}?v2=true`
+- Include PricingSaaS links for every company mentioned: `https://pricingsaas.com/pulse/companies/{slug}`
 - When the user provided a seed company, position that company within the landscape
 - The report link is the most important output — make it unmissable
 
@@ -241,10 +241,6 @@ This makes `pulse-scan` an ideal entry point for new users — zero friction, ze
 ## Skill boundaries
 
 - **Does:** Map who's in the space, how they price, what models dominate
-- **Does not:** Recommend what to charge (→ `pulse-deepdive`)
-- **Does not:** Track changes over time (→ `pulse-monitor`)
+- **Does not:** Recommend what to charge
+- **Does not:** Track changes over time
 - **Does not:** Provide strategic frameworks (user can ask follow-ups that may invoke `search_pricing_knowledge`)
-
-## Role as entry point
-
-`pulse-scan` is the **free entry point** into the PricingSaaS skill ecosystem. It costs zero credits but produces a high-value landscape that naturally creates demand for credit-consuming follow-ups. Every explore run should end with compelling, specific recommendations that funnel users into `pulse-deepdive` (history pulls, diff analysis) and `pulse-monitor` (ongoing watchlist tracking). The recommendations must reference actual companies and data from the landscape — generic suggestions convert poorly.
