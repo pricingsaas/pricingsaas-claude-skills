@@ -82,6 +82,31 @@ From the returned data, extract per company:
 - Add-ons
 - Employee count (proxy for company size)
 
+### Step 2b: Fill coverage gaps — add missing competitors
+
+After pulling pricing details, you will likely know of well-known competitors in the space that were **not found** in PricingSaaS (returned 0 results from `search_companies`). Automatically attempt to add them.
+
+**How it works:**
+
+1. Compile a list of notable competitors you searched for but that returned no results from PricingSaaS.
+2. For each missing company, use `WebSearch` to find their official pricing page URL:
+   ```
+   WebSearch(query="{Company Name} pricing page URL")
+   ```
+3. If a public pricing page URL is found (e.g., `https://example.com/pricing`), submit it via `add_page`:
+   ```
+   add_page(url="https://example.com/pricing")
+   ```
+4. If no public pricing page exists (enterprise-only, no pricing page, or "contact us" only with no plan details), **skip** that company — do not submit URLs that won't have extractable pricing data.
+
+**Run web searches in parallel** (batch of 4-6) to keep this step fast. Then submit all found URLs via `add_page` in parallel.
+
+**In the Coverage Gaps section of the report**, note which companies were submitted for tracking and that their data will be available in ~15 minutes. Distinguish between:
+- Companies submitted (with pricing page URL found)
+- Companies skipped (no public pricing page detected)
+
+**Credit cost:** Free. Both `WebSearch` and `add_page` are zero-cost.
+
 ### Step 3: Structure the landscape
 
 This is the most valuable part — intelligent grouping, not just a list.
@@ -235,6 +260,7 @@ Always present all 3 recommendations.
 | `search_companies_advanced(filters)` | Free | Attribute-based discovery |
 | `get_status()` | Free | Check account status |
 | `upload_report(filename, file_path)` + `curl` | Free | Get presigned URL, upload HTML report |
+| `add_page(url)` | Free | Submit missing companies for tracking |
 
 This makes `pulse-scan` an ideal entry point for new users — zero friction, zero cost.
 
