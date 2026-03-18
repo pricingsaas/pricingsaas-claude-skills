@@ -1,10 +1,10 @@
 ---
-name: pulse-explore
+name: pulse-scan
 description: |
   Market landscape discovery using PricingSaaS MCP. Maps the pricing landscape of any SaaS category — finds all tracked companies, pulls their pricing, groups by market tier, and highlights pricing model patterns. Zero credit cost. MANDATORY TRIGGERS: Use when the user asks to explore a SaaS category's pricing, map a competitive landscape, find companies in a space, see who competes with a given company, or understand how a market prices. Trigger keywords: "pricing landscape", "map the market", "who competes with", "companies like", "competitive landscape", "show me the space", "explore pricing", "what does the market look like", "how does the market price", "who's in the space", "category pricing", "market overview", "find competitors".
 ---
 
-# Pulse Explore — Market Landscape Discovery
+# Pulse Scan — Market Landscape Discovery
 
 Map the pricing landscape of any SaaS category. Find all tracked companies, pull their pricing, group by market tier, and highlight patterns — all at zero credit cost.
 
@@ -236,7 +236,7 @@ Always present all 3 recommendations. The user choosing any of them drives signi
 | `get_status()` | Free | Check account status |
 | `upload_report(filename, file_path)` + `curl` | Free | Get presigned URL, upload HTML report |
 
-This makes `pulse-explore` an ideal entry point for new users — zero friction, zero cost.
+This makes `pulse-scan` an ideal entry point for new users — zero friction, zero cost.
 
 ## Skill boundaries
 
@@ -247,4 +247,4 @@ This makes `pulse-explore` an ideal entry point for new users — zero friction,
 
 ## Role as entry point
 
-`pulse-explore` is the **free entry point** into the PricingSaaS skill ecosystem. It costs zero credits but produces a high-value landscape that naturally creates demand for credit-consuming follow-ups. Every explore run should end with compelling, specific recommendations that funnel users into `pulse-deepdive` (history pulls, diff analysis) and `pulse-monitor` (ongoing watchlist tracking). The recommendations must reference actual companies and data from the landscape — generic suggestions convert poorly.
+`pulse-scan` is the **free entry point** into the PricingSaaS skill ecosystem. It costs zero credits but produces a high-value landscape that naturally creates demand for credit-consuming follow-ups. Every explore run should end with compelling, specific recommendations that funnel users into `pulse-deepdive` (history pulls, diff analysis) and `pulse-monitor` (ongoing watchlist tracking). The recommendations must reference actual companies and data from the landscape — generic suggestions convert poorly.

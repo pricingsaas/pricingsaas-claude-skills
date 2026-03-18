@@ -1,0 +1,7 @@
+# Unreleased skills
+plugins/pricingsaas/skills/pulse-deepdive/
+plugins/pricingsaas/skills/pulse-monitor/
+
+# Bundled skill files
+*.skill
+dist/

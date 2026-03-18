@@ -77,9 +77,9 @@ There's no way to browse or list categories, so the skill relies on keyword sear
 
 ---
 
-## 8. Consider: `request_company` Tool (Nice-to-Have for `pulse-explore`)
+## 8. Consider: `request_company` Tool (Nice-to-Have for `pulse-scan`)
 
-**Problem:** When `pulse-explore` discovers coverage gaps (e.g., "voice AI tools aren't tracked"), there's no programmatic way for users to request that companies be added to PricingSaaS. The spec references a `pricingsaas-add` flow but no such MCP tool exists.
+**Problem:** When `pulse-scan` discovers coverage gaps (e.g., "voice AI tools aren't tracked"), there's no programmatic way for users to request that companies be added to PricingSaaS. The spec references a `pricingsaas-add` flow but no such MCP tool exists.
 
 **Suggestion:** A `request_company(name, url, reason)` tool that queues a company for PricingSaaS tracking. Returns a confirmation that the request was received. This closes the feedback loop — users who hit gaps become data contributors rather than churning.
 
@@ -89,7 +89,7 @@ There's no way to browse or list categories, so the skill relies on keyword sear
 - **Cost:** Free
 - **Auth:** Tied to partner API key
 
-**Not a blocker** — `pulse-explore` handles gaps gracefully by noting what's missing. But this would improve retention for users like Ken at Yelp who churned partly due to coverage gaps.
+**Not a blocker** — `pulse-scan` handles gaps gracefully by noting what's missing. But this would improve retention for users like Ken at Yelp who churned partly due to coverage gaps.
 
 ---
 
@@ -102,6 +102,6 @@ There's no way to browse or list categories, so the skill relies on keyword sear
 | 3 | `get_latest_diffs` cleanup | Done | No action needed | — |
 | 4 | `get_diff_highlight` partner access | High | Verification | `pulse-monitor`, `pulse-deepdive` |
 | 5 | `search_pricing_knowledge` partner access | Medium | Verification | `pulse-deepdive` |
-| 6 | `get_categories` tool | Nice-to-have | New tool | `pulse-deepdive`, `pulse-explore` |
+| 6 | `get_categories` tool | Nice-to-have | New tool | `pulse-deepdive`, `pulse-scan` |
 | 7 | Watchlist tools (`get/add/remove`) | **Done** | Implemented | `pulse-monitor` |
-| 8 | `request_company` tool | Nice-to-have | New tool | `pulse-explore` |
+| 8 | `request_company` tool | Nice-to-have | New tool | `pulse-scan` |

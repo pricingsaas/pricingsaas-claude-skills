@@ -15,7 +15,7 @@ Skills in this plugin use the [PricingSaaS MCP server](https://pricingsaas.com) 
 
 ## Skills
 
-### `/pricingsaas:pulse-explore` — Market Landscape Discovery
+### `/pricingsaas:pulse-scan` — Market Landscape Discovery
 
 Map the pricing landscape of any SaaS category. Finds all tracked companies, pulls pricing details, groups by market tier, and highlights pricing model patterns. **Zero credit cost.**
 
@@ -49,7 +49,7 @@ Manages a persistent watchlist of competitor companies and delivers recurring su
 
 The three skills form a natural funnel:
 
-1. **Explore** a category → discover who's in the space and how they price
+1. **Scan** a category → discover who's in the space and how they price
 2. **Deep-dive** into a specific company → get a pricing recommendation with a report
 3. **Monitor** ongoing → track competitor changes week over week
 
