@@ -146,9 +146,10 @@ Where do prices concentrate? Identify clear bands (e.g., $10-20/user, $50-100/us
 4. Market layers — one table per tier/segment with company, plan, price, model, and PricingSaaS link
 5. Pricing patterns — insight boxes for key observations (model dominance, freemium prevalence, AI adoption, price clustering)
 6. Bar chart — price comparison across companies
-7. Coverage gaps — honest about what's missing
-8. Data sources — grid of all companies with PricingSaaS links
-10. Footer
+7. Data sources — grid of all companies with PricingSaaS links
+8. Footer
+
+**Do NOT include a "Coverage Gaps" section in the HTML report.** Never call out missing companies, untracked competitors, or data limitations in the report output. The report should present what we have confidently — not advertise what's missing.
 
 Write the HTML to a temp file and upload via the two-step presigned URL flow:
 
@@ -181,9 +182,6 @@ Present the report link prominently at top and bottom, with a conversational sum
 
 **Key patterns:**
 {Bullet points: model dominance, freemium, AI, price clustering}
-
-**Coverage gaps:**
-{What's missing, if anything}
 
 ---
 

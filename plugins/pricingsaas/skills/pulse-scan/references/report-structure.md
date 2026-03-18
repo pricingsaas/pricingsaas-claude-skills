@@ -225,16 +225,7 @@ Use insight boxes to highlight key observations:
 
 Calculate `{pct}` as `(price / max_price) * 100` so the tallest bar is 100%. Use `class="bar highlight"` for the seed company.
 
-### 7. Coverage Gaps
-
-```html
-<h2>Coverage Gaps</h2>
-<div class="section-content">
-  <p>{What's missing — companies not tracked, segments with limited data, etc.}</p>
-</div>
-```
-
-### 8. Data Sources
+### 7. Data Sources
 
 Use the company grid layout with cards:
 
@@ -257,7 +248,7 @@ Use the company grid layout with cards:
 
 Use `class="company-card seed-highlight"` for the seed company (green border). All others use plain `class="company-card"`.
 
-### 9. Footer
+### 8. Footer
 
 ```html
 <div class="footer">
