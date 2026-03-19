@@ -91,10 +91,10 @@ h3 { font-size: 16px; font-weight: 700; color: #222; margin: 24px 48px 12px; }
 
 /* Company Grid (for data sources) */
 .company-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; margin: 16px 0; }
-.company-card { padding: 12px 16px; border: 1px solid #e0e0e0; border-radius: 6px; font-size: 13px; }
-.company-card a { color: #222; text-decoration: none; font-weight: 600; }
-.company-card a:hover { text-decoration: underline; }
-.company-card .meta { font-size: 11px; color: #888; margin-top: 4px; }
+.company-card { border: 1px solid #e0e0e0; border-radius: 6px; font-size: 13px; }
+.company-card a { display: block; padding: 12px 16px; color: #222; text-decoration: none; font-weight: 600; }
+.company-card a:hover { background: #f9f9f9; }
+.company-card .meta { font-size: 11px; color: #888; margin-top: 4px; font-weight: 400; }
 .seed-highlight { background: #f0fdf4; border: 2px solid #059669; }
 
 /* Footer */
@@ -234,12 +234,10 @@ Use the company grid layout with cards:
 <div class="section-content">
   <div class="company-grid">
     <div class="company-card seed-highlight">
-      <a href="https://pricingsaas.com/pulse/companies/{slug}">{Seed Company Name}</a>
-      <div class="meta">{employee count} · {pricing model}</div>
+      <a href="https://pricingsaas.com/pulse/companies/{slug}">{Seed Company Name}<div class="meta">{employee count} · {pricing model}</div></a>
     </div>
     <div class="company-card">
-      <a href="https://pricingsaas.com/pulse/companies/{slug}">{Company Name}</a>
-      <div class="meta">{employee count} · {pricing model}</div>
+      <a href="https://pricingsaas.com/pulse/companies/{slug}">{Company Name}<div class="meta">{employee count} · {pricing model}</div></a>
     </div>
     <!-- repeat for each company -->
   </div>
@@ -271,3 +269,4 @@ Use `class="company-card seed-highlight"` for the seed company (green border). A
 8. **Links everywhere** — every company name links to `https://pricingsaas.com/pulse/companies/{slug}`.
 9. **Upload as .html** — Write to `/tmp/{category}-pricing-landscape.html`, then `upload_report(filename, file_path)` and execute the returned curl command.
 10. **Company logos** — use the `logo_url` field from `get_company_details` (Cloudinary-hosted). Do NOT use `https://logo.clearbit.com/` URLs — they do not render.
+11. **Company cards must be fully clickable** — In the Data Sources grid, wrap the entire card content (company name AND meta text) inside a single `<a>` tag so the whole card is clickable. Link to `https://pricingsaas.com/pulse/companies/{slug}`.
